@@ -2,6 +2,8 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.Dimension;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -24,8 +26,15 @@ public class LoginTests {
 
     @BeforeMethod
     public void setup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // Headless mode (new flag for Chrome 109+)
+        options.addArguments("--no-sandbox"); // Prevents root privilege issues
+        options.addArguments("--disable-dev-shm-usage"); // Prevents crashes in low-memory environments
+        options.addArguments("--disable-gpu"); // Optional, but stabilizes headless Chrome in CI
+        options.addArguments("--remote-allow-origins=*"); // Helps avoid some CORS/network issues
+
+        driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1920, 1080)); // Emulates fullscreen for consistency
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
     }
@@ -68,7 +77,9 @@ public class LoginTests {
         } else {
             test.skip("Test skipped");
         }
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @AfterClass
