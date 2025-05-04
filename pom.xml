@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cucumberdemo</groupId>  
+    <groupId>com.cucumberdemo</groupId>
     <artifactId>CucumberLoginTest</artifactId>
     <version>1.0</version>
 
@@ -20,7 +20,7 @@
             <version>4.18.1</version>
         </dependency>
 
-        <!-- ExtentReports -->
+        <!-- Extent Reports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
@@ -96,18 +96,15 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire plugin to include only TestNG tests under /tests and exclude Cucumber -->
+            <!-- Surefire plugin to run TestNG tests only -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <includes>
-                        <include>**/tests/*.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/CucumberLoginTest.java</exclude>
-                    </excludes>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
