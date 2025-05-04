@@ -19,12 +19,13 @@
             <artifactId>selenium-java</artifactId>
             <version>4.18.1</version>
         </dependency>
-        
+
+        <!-- Extent Reports -->
         <dependency>
-    <groupId>com.aventstack</groupId>
-    <artifactId>extentreports</artifactId>
-    <version>5.1.1</version>
-</dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.1</version>
+        </dependency>
 
         <!-- WebDriverManager -->
         <dependency>
@@ -68,7 +69,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ OpenAI API Client Dependencies -->
+        <!-- OpenAI Client Dependencies -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
@@ -80,11 +81,11 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -92,6 +93,18 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire plugin to run TestNG tests only -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
